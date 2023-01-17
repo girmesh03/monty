@@ -60,4 +60,7 @@ void rotr(stack_t **stack, unsigned int line_number);
 void stack(stack_t **stack, unsigned int line_number);
 void queue(stack_t **stack, unsigned int line_number);
 
+/* free stack */
+void free_stack(stack_t *stack);
+
 #endif /* MONTY_H */
