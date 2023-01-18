@@ -1,4 +1,5 @@
 #include "monty.h"
+#include <ctype.h>
 
 void divi(stack_t **stack, unsigned int line_number);
 void mul(stack_t **stack, unsigned int line_number);
@@ -82,12 +83,14 @@ void pchar(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
+		return;
 	}
 
-	if ((*stack)->n < 0 || (*stack)->n > 127)
+	if (__isascii((*stack)->n) == 0)
 	{
 		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
 		exit(EXIT_FAILURE);
+		return;
 	}
 	printf("%c\n", (*stack)->n);
 }
