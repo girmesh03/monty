@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 	{
 		line_number++;
 		token = strtok(line, " \n\t");
-		if (token == NULL || token[0] == '#')
+		if (token == NULL || token[0] == '#' || token[0] == '\n')
 			continue;
 		for (i = 0; opcodes[i].opcode != NULL; i++)
 		{
