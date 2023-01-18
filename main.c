@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 	{
 		line_number++;
 		token = strtok(line, " \n\t");
-		if (token == NULL || token[0] == '#' || token[0] == '\n')
+		if (token == NULL || token[0] == '#')
 			continue;
 		for (i = 0; opcodes[i].opcode != NULL; i++)
 		{
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 	free(line);
 	free_stack(stack);
 	fclose(fp);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 /**
