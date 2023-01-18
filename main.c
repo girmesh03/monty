@@ -29,6 +29,10 @@ int main(int argc, char *argv[])
 		{"add", add},
 		{"nop", nop},
 		{"sub", sub},
+		{"div", divi},
+		{"mul", mul},
+		{"mod", mod},
+		{"pchar", pchar},
 		{NULL, NULL}};
 	int i;
 
