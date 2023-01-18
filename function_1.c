@@ -30,12 +30,21 @@ void push(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	new->n = n;
-	new->prev = NULL;
-	new->next = *stack;
-	if (*stack != NULL)
+	new->n = atoi(token);
+
+	if (*stack == NULL)
+	{
+		new->next = NULL;
+		new->prev = NULL;
+		*stack = new;
+	}
+	else
+	{
+		new->next = *stack;
+		new->prev = NULL;
 		(*stack)->prev = new;
-	*stack = new;
+		*stack = new;
+	}
 }
 /**
  * pall - prints all the values on the stack, starting from the top
