@@ -6,6 +6,9 @@
 #include <string.h>
 #include <unistd.h>
 
+#define STACK 0
+#define QUEUE 1
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -62,5 +65,6 @@ void queue(stack_t **stack, unsigned int line_number);
 
 /* free stack */
 void free_stack(stack_t *stack);
-
+int check_mode(stack_t *stack);
+int is_number(char *str);
 #endif /* MONTY_H */
