@@ -17,8 +17,7 @@ void push(stack_t **stack, unsigned int line_number)
 	int n;
 
 	token = strtok(NULL, " \n\t");
-	if (((token == NULL) || (token[0] < '0' || token[0] > '9'))
-			&& (token[0] != '-'))
+	if (((token == NULL) || (token[0] < '0' || token[0] > '9')))
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
@@ -30,21 +29,13 @@ void push(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	new->n = atoi(token);
 
-	if (*stack == NULL)
-	{
-		new->next = NULL;
-		new->prev = NULL;
-		*stack = new;
-	}
-	else
-	{
-		new->next = *stack;
-		new->prev = NULL;
+	new->n = n;
+	new->prev = NULL;
+	new->next = *stack;
+	if (*stack != NULL)
 		(*stack)->prev = new;
-		*stack = new;
-	}
+	*stack = new;
 }
 /**
  * pall - prints all the values on the stack, starting from the top
