@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 		{"pstr", pstr},
 		{"rotl", rotl},
 		{"rotr", rotr},
-		{"stack", stack},
+		{"stack", my_stack},
 		{"queue", queue},
 		{NULL, NULL}};
 	int i;

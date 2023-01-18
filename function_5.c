@@ -3,7 +3,7 @@
 void pstr(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
 void rotr(stack_t **stack, unsigned int line_number);
-void stack(stack_t **stack, unsigned int line_number);
+void my_stack(stack_t **stack, unsigned int line_number);
 void queue(stack_t **stack, unsigned int line_number);
 
 /**
@@ -87,12 +87,12 @@ void rotr(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * stack - sets the format of the data to a stack (LIFO)
+ * my_stack - sets the format of the data to a stack (LIFO)
  * @stack: double pointer to the stack
  * @line_number: line number of the opcode
  * Return: void
  */
-void stack(stack_t **stack, unsigned int line_number)
+void my_stack(stack_t **stack, unsigned int line_number)
 {
 	(void)stack;
 	(void)line_number;
