@@ -17,7 +17,8 @@ void push(stack_t **stack, unsigned int line_number)
 	int n;
 
 	token = strtok(NULL, " \n\t");
-	if (((token == NULL) || (token[0] < '0' || token[0] > '9')) && (token[0] != '-'))
+	if (((token == NULL) || (token[0] < '0' || token[0] > '9'))
+			&& (token[0] != '-'))
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
