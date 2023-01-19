@@ -78,6 +78,8 @@ void rotr(stack_t **stack, unsigned int line_number)
 {
 	/* let tmp point to the top of the stack */
 	stack_t *tmp = *stack;
+	/* declare variable n */
+	int n;
 	/* line_number be used */
 	(void)line_number;
 
@@ -89,10 +91,16 @@ void rotr(stack_t **stack, unsigned int line_number)
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 
-	/* rotate the stack to the bottom */
-	tmp->next = *stack;
-	(*stack)->prev = tmp;
-	*stack = (*stack)->prev;
-	(*stack)->next->prev = NULL;
-	(*stack)->next = NULL;
+	/* save the value of the last node */
+	n = tmp->n;
+	/* while tmp prev is not NULL */
+	while (tmp->prev != NULL)
+	{
+		/* update the value of tmp */
+		tmp->n = tmp->prev->n;
+		/* update tmp */
+		tmp = tmp->prev;
+	}
+	/* update the value of the first node */
+	tmp->n = n;
 }
