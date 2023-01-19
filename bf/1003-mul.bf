@@ -34,5 +34,6 @@ convert to ascii
  <[<]>-
 ]
 
-print
->>[.<<]<[<<]>>.
+print and newline
+>>[.<<]<[<<]>>.<<++++++++++.>
+
