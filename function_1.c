@@ -43,7 +43,21 @@ void push(stack_t **stack, unsigned int line_cnt)
  * @line_cnt: line number
  * Return: void
  */
-void pall(stack_t **stack, unsigned int line_cnt __attribute__((unused)))
+void pall(stack_t **stack, unsigned int line_cnt)
 {
-	print_stack(*stack);
+	/* declare pointer to stack */
+	stack_t *current = *stack;
+
+	/* if stack is empty, do nothing */
+	if (!current)
+		return;
+
+	/* loop through stack */
+	while (current)
+	{
+		/* print value */
+		printf("%d\n", current->n);
+		/* move to next node */
+		current = current->next;
+	}
 }
