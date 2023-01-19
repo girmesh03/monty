@@ -3,7 +3,6 @@
 
 void file_error(char *argv);
 void error_usage(void);
-int status = 0;
 
 /**
  * main - main function
@@ -31,8 +30,6 @@ int main(int argc, char **argv)
 
 	while ((getline(&buffer, &buf_len, file)) != (-1))
 	{
-		if (status)
-			break;
 		if (*buffer == '\n')
 		{
 			line_cnt++;
