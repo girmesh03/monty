@@ -12,22 +12,30 @@ void rotr(stack_t **stack, unsigned int line_number);
  */
 void pstr(stack_t **stack, unsigned int line_number)
 {
+	/* let tmp point to the top of the stack */
 	stack_t *tmp = *stack;
+	/* let line_number be used */
 	(void)line_number;
 
+	/* if stack is empty, print a new line */
 	if (*stack == NULL)
 	{
 		printf("\n");
 		return;
 	}
 
+	/* loop through the stack until tmp is NULL */
 	while (tmp != NULL)
 	{
+		/* if value n is 0, break or if n is not in ASCII, break */
 		if (tmp->n == 0 || tmp->n < 0 || tmp->n > 127)
 			break;
+		/* print the char at the top of the stack */
 		printf("%c", tmp->n);
+		/* update tmp */
 		tmp = tmp->next;
 	}
+	/* print a new line */
 	printf("\n");
 }
 
@@ -39,15 +47,20 @@ void pstr(stack_t **stack, unsigned int line_number)
  */
 void rotl(stack_t **stack, unsigned int line_number)
 {
+	/* let tmp point to the top of the stack */
 	stack_t *tmp = *stack;
+	/* line_number be used */
 	(void)line_number;
 
+	/* if stack is empty or has only one element, return */
 	if (*stack == NULL || (*stack)->next == NULL)
 		return;
 
+	/* loop through the stack until tmp is NULL */
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 
+	/* rotate the stack to the top */
 	tmp->next = *stack;
 	(*stack)->prev = tmp;
 	*stack = (*stack)->next;
@@ -63,15 +76,20 @@ void rotl(stack_t **stack, unsigned int line_number)
  */
 void rotr(stack_t **stack, unsigned int line_number)
 {
+	/* let tmp point to the top of the stack */
 	stack_t *tmp = *stack;
+	/* line_number be used */
 	(void)line_number;
 
+	/* if stack is empty or has only one element, return */
 	if (*stack == NULL || (*stack)->next == NULL)
 		return;
 
+	/* loop through the stack until tmp is NULL */
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 
+	/* rotate the stack to the bottom */
 	tmp->next = *stack;
 	(*stack)->prev = tmp;
 	*stack = (*stack)->prev;
