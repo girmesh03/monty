@@ -84,13 +84,9 @@ void pchar(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	/* if the value is not in the ascii table, print error */
-	if (!((*stack)->n >= 0 && (*stack)->n <= 127))
-	{
+	/* if the value is in the ascii table, print the char */
+	if ((*stack)->n >= 0 && (*stack)->n <= 127)
+		fprintf(stdout, "%c\n", (*stack)->n);
+	else
 		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-
-	/* print the char on the top of the stack */
-	printf("%c\n", (*stack)->n);
 }
