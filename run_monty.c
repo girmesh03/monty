@@ -28,6 +28,7 @@ void opcode(stack_t **stack, char *str, unsigned int line_number)
 		{"div", divi},
 		{"mul", mul},
 		{"mod", mod},
+		{"pchar", pchar},
 		{NULL, NULL}};
 
 	/* check mode stack or queue */
