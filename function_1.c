@@ -80,12 +80,12 @@ void pint(stack_t **stack, unsigned int line_cnt)
 {
 	/* if stack is empty, print error message */
 	/* and exit with status EXIT_FAILURE */
-	if (*stack == NULL)
+	if (!stack || !(*stack))
 	{
 		fprintf(stderr, "L%d: can't pint, stack empty\n", line_cnt);
 		exit(EXIT_FAILURE);
 	}
-	/* print value at top of stack */
+	/* print value of top of stack */
 	printf("%d\n", (*stack)->n);
 }
 
