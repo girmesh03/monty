@@ -2,12 +2,11 @@
 #define MONTY_H
 
 #include <stdio.h>
+#include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
-#define STACK 0
-#define QUEUE 1
+#include <ctype.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -38,6 +37,20 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/**
+ * struct help - argument for the current opcode
+ * @data_struct: stack mode, stack (default) and queue
+ * @argument: the arguments of the string
+ *
+ * Description: global structure used to pass data around the functions easily
+ */
+typedef struct help
+{
+	int data_struct;
+	char *argument;
+} help;
+help global;
+
 /* In a file function_1.c */
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
@@ -63,8 +76,19 @@ void rotr(stack_t **stack, unsigned int line_number);
 void my_stack(stack_t **stack, unsigned int line_number);
 void queue(stack_t **stack, unsigned int line_number);
 
-/* free stack */
+/* In file function_5.c */
+stack_t *add_node(stack_t **stack, const int n);
+stack_t *queue_node(stack_t **stack, const int n);
 void free_stack(stack_t *stack);
-int check_mode(stack_t *stack);
-int is_number(char *str);
+size_t print_stack(const stack_t *stack);
+
+/* In a file function_6.c */
+void opcode(stack_t **stack, char *str, unsigned int line_cnt);
+int is_digit(char *string);
+int isnumber(char *str);
+
+/* In run_monty.c */
+void unknown_instruction(char *str, unsigned int line_cnt);
+void free_all(char *buffer, FILE *file, stack_t *stack);
+
 #endif /* MONTY_H */

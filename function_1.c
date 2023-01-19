@@ -1,94 +1,49 @@
 #include "monty.h"
 
-void push(stack_t **stack, unsigned int line_number);
-void pall(stack_t **stack, unsigned int line_number);
-void pint(stack_t **stack, unsigned int line_number);
-void pop(stack_t **stack, unsigned int line_number);
-
 /**
  * push - pushes an element to the stack
- * @stack: double pointer to the stack
- * @line_number: line number of the opcode
+ * @stack: pointer to the top of the stack
+ * @line_cnt: line number
+ * Return: void
  */
-void push(stack_t **stack, unsigned int line_number)
+void push(stack_t **stack, unsigned int line_cnt)
 {
-	stack_t *new;
-	char *token;
-	int n;
+	/* get argument */
+	char *value = global.argument;
 
-	token = strtok(NULL, " \n\t");
-	if (((token == NULL) || (token[0] < '0' || token[0] > '9')))
+	/* if value is not a digit */
+	if ((is_digit(value)) == 0)
 	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	n = atoi(token);
-	new = malloc(sizeof(stack_t));
-	if (new == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
+		/* print error message */
+		fprintf(stderr, "L%u: usage: push integer\n", line_cnt);
+		/* exit with status EXIT_FAILURE */
 		exit(EXIT_FAILURE);
 	}
 
-	new->n = n;
-	new->prev = NULL;
-	new->next = *stack;
-	if (*stack != NULL)
-		(*stack)->prev = new;
-	*stack = new;
+	/* if stack mode is stack, push to stack */
+	if (global.data_struct == 1)
+	{
+		/* if push fails, exit with status EXIT_FAILURE */
+		if (!add_node(stack, atoi(global.argument)))
+			exit(EXIT_FAILURE);
+	}
+
+	/* if stack mode is queue, push to queue */
+	if (global.data_struct == 0)
+	{
+		/* if push fails, exit with status EXIT_FAILURE */
+		if (!queue_node(stack, atoi(global.argument)))
+			exit(EXIT_FAILURE);
+	}
 }
+
 /**
  * pall - prints all the values on the stack, starting from the top
- * @stack: double pointer to the stack
- * @line_number: line number of the opcode
+ * @stack: pointer to the top of the stack
+ * @line_cnt: line number
+ * Return: void
  */
-void pall(stack_t **stack, unsigned int line_number)
+void pall(stack_t **stack, unsigned int line_cnt __attribute__((unused)))
 {
-	stack_t *tmp = *stack;
-
-	(void)line_number;
-
-	if (*stack == NULL)
-		return;
-
-	while (tmp != NULL)
-	{
-		printf("%d\n", tmp->n);
-		tmp = tmp->next;
-	}
-}
-
-/**
- * pint - prints the value at the top of the stack, followed by a new line
- * @stack: double pointer to the stack
- * @line_number: line number of the opcode
- */
-void pint(stack_t **stack, unsigned int line_number)
-{
-	if (*stack == NULL)
-	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	printf("%d\n", (*stack)->n);
-}
-
-/**
- * pop - removes the top element of the stack
- * @stack: double pointer to the stack
- * @line_number: line number of the opcode
- */
-void pop(stack_t **stack, unsigned int line_number)
-{
-	stack_t *tmp = *stack;
-
-	if (*stack == NULL)
-	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	*stack = (*stack)->next;
-	if (*stack != NULL)
-		(*stack)->prev = NULL;
-	free(tmp);
+	print_stack(*stack);
 }

@@ -1,111 +1,163 @@
 #include "monty.h"
 
-void pstr(stack_t **stack, unsigned int line_number);
-void rotl(stack_t **stack, unsigned int line_number);
-void rotr(stack_t **stack, unsigned int line_number);
-void my_stack(stack_t **stack, unsigned int line_number);
-void queue(stack_t **stack, unsigned int line_number);
+stack_t *add_node(stack_t **stack, const int n);
+stack_t *queue_node(stack_t **stack, const int n);
+void free_stack(stack_t *stack);
+size_t print_stack(const stack_t *stack);
 
 /**
- * pstr - prints the string starting at the top of the stack
- * @stack: double pointer to the stack
- * @line_number: line number of the opcode
- * Return: void
+ * add_node - adds a node to the top of the stack
+ * @stack: pointer to the top of the stack
+ * @n: value of the new node
+ * Return: pointer to the new node
  */
-void pstr(stack_t **stack, unsigned int line_number)
+stack_t *add_node(stack_t **stack, const int n)
 {
-	stack_t *tmp = *stack;
+	/* create new node */
+	stack_t *new_node = malloc(sizeof(stack_t));
 
-	(void)line_number;
-
-	if (*stack == NULL)
+	/* check if malloc failed, if so */
+	/* free the new_node and return NULL */
+	if (!new_node)
 	{
-		printf("\n");
-		return;
+		fprintf(stderr, "Error: malloc failed\n");
+		free(new_node);
+		return (NULL);
 	}
 
-	while (tmp != NULL)
+	/* set the new_node's value to n */
+	new_node->n = n;
+	/* set the new_node's next to stack */
+	new_node->next = *stack;
+	/* set the new_node's prev to NULL */
+	new_node->prev = NULL;
+
+	/* if stack is not NULL */
+	/* set the stack's prev to new_node */
+	if (*stack)
+		(*stack)->prev = new_node;
+
+	/* set stack to new_node */
+	*stack = new_node;
+
+	/* return new_node */
+	return (new_node);
+}
+
+/**
+ * queue_node - adds a node to the end of the stack
+ * @stack: pointer to the top of the stack
+ * @n: value of the new node
+ * Return: pointer to the new node
+ */
+stack_t *queue_node(stack_t **stack, const int n)
+{
+	/* create new node */
+	stack_t *new_node = malloc(sizeof(stack_t));
+	/* create current node and set it to stack */
+	stack_t *current = *stack;
+
+	/* check if malloc failed, if so */
+	/* free the new_node and return NULL */
+	if (!new_node)
 	{
-		if (tmp->n == 0 || tmp->n < 0 || tmp->n > 127)
+		fprintf(stderr, "Error: malloc failed\n");
+		free(new_node);
+		return (NULL);
+	}
+
+	/* set the new_node's value to n */
+	new_node->n = n;
+
+	/* if stack is NULL */
+	/* set the new_node's next to NULL */
+	/* set the new_node's prev to NULL */
+	/* set stack to new_node */
+	if (!*stack)
+	{
+		new_node->next = NULL;
+		new_node->prev = NULL;
+		*stack = new_node;
+		return (new_node);
+	}
+
+	/* while current is not NULL */
+	while (current)
+	{
+		/* if current's next is NULL */
+		/* set the new_node's next to NULL */
+		/* set the new_node's prev to current */
+		/* set current's next to new_node */
+		if (!current->next)
+		{
+			new_node->next = NULL;
+			new_node->prev = current;
+			current->next = new_node;
 			break;
-		printf("%c", tmp->n);
-		tmp = tmp->next;
+		}
+		/* set current to current's next */
+		current = current->next;
 	}
-	printf("\n");
+
+	/* return new_node */
+	return (new_node);
 }
 
 /**
- * rotl - rotates the stack to the top
- * @stack: double pointer to the stack
- * @line_number: line number of the opcode
+ * free_stack - frees a stack_t stack
+ * @stack: pointer to the top of the stack
  * Return: void
  */
-void rotl(stack_t **stack, unsigned int line_number)
+void free_stack(stack_t *stack)
 {
-	stack_t *tmp = *stack;
-	int n;
+	/* create current node and set it to stack */
+	stack_t *current = stack;
+	/* create next node */
+	stack_t *next;
 
-	(void)line_number;
-
-	if (*stack == NULL || (*stack)->next == NULL)
-		return;
-
-	n = tmp->n;
-	while (tmp->next != NULL)
+	/* if stack is not NULL */
+	if (stack)
 	{
-		tmp->n = tmp->next->n;
-		tmp = tmp->next;
+		/* set next to stack's next */
+		next = stack->next;
+		/* while current is not NULL */
+		while (current)
+		{
+			/* free current */
+			free(current);
+			/* set current to next */
+			current = next;
+			/* if next is not NULL */
+			if (next)
+				/* set next to next's next */
+				next = next->next;
+		}
 	}
-	tmp->n = n;
 }
 
 /**
- * rotr - rotates the stack to the bottom
- * @stack: double pointer to the stack
- * @line_number: line number of the opcode
- * Return: void
+ * print_stack - prints a stack_t stack
+ * @stack: pointer to the top of the stack
+ * Return: number of nodes in the stack
  */
-void rotr(stack_t **stack, unsigned int line_number)
+size_t print_stack(const stack_t *stack)
 {
-	stack_t *tmp = *stack;
-	int n;
+	/* create current node and set it to stack */
+	const stack_t *current = stack;
+	/* create counter and set it to 0 */
+	size_t counter = 0;
 
-	(void)line_number;
-
-	if (*stack == NULL || (*stack)->next == NULL)
-		return;
-
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	n = tmp->n;
-	while (tmp->prev != NULL)
+	/* while current is not NULL */
+	while (current)
 	{
-		tmp->n = tmp->prev->n;
-		tmp = tmp->prev;
+		/* print current's value */
+		printf("%d\n", current->n);
+		/* set current to current's next */
+		current = current->next;
+		/* increment counter */
+		counter++;
 	}
-	tmp->n = n;
-}
 
-/**
- * my_stack - sets the format of the data to a stack (LIFO)
- * @stack: double pointer to the stack
- * @line_number: line number of the opcode
- * Return: void
- */
-void my_stack(stack_t **stack, unsigned int line_number)
-{
-	(void)stack;
-	(void)line_number;
-}
-
-/**
- * queue - sets the format of the data to a queue (FIFO)
- * @stack: double pointer to the stack
- * @line_number: line number of the opcode
- * Return: void
- */
-void queue(stack_t **stack, unsigned int line_number)
-{
-	(void)stack;
-	(void)line_number;
+	/* return counter */
+	return (counter);
 }
