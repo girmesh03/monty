@@ -83,12 +83,12 @@ void free_stack(stack_t *stack);
 size_t print_stack(const stack_t *stack);
 
 /* In a file function_6.c */
-void opcode(stack_t **stack, char *str, unsigned int line_cnt);
+void opcode(stack_t **stack, char *str, unsigned int line_number);
 int is_digit(char *string);
 int isnumber(char *str);
 
 /* In run_monty.c */
-void unknown_instruction(char *str, unsigned int line_cnt);
+void unknown_instruction(char *str, unsigned int line_number);
 void free_all(char *buffer, FILE *file, stack_t *stack);
 
 #endif /* MONTY_H */

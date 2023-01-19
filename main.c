@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 	char *buffer = NULL;
 	char *str = NULL;
 	stack_t *stack = NULL;
-	unsigned int line_cnt = 1;
+	unsigned int line_number = 1;
 
 	global.data_struct = 1;
 	if (argc != 2)
@@ -32,18 +32,18 @@ int main(int argc, char **argv)
 	{
 		if (*buffer == '\n')
 		{
-			line_cnt++;
+			line_number++;
 			continue;
 		}
 		str = strtok(buffer, " \t\n");
 		if (!str || *str == '#')
 		{
-			line_cnt++;
+			line_number++;
 			continue;
 		}
 		global.argument = strtok(NULL, " \t\n");
-		opcode(&stack, str, line_cnt);
-		line_cnt++;
+		opcode(&stack, str, line_number);
+		line_number++;
 	}
 	free(buffer);
 	free_stack(stack);

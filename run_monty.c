@@ -1,16 +1,16 @@
 #include "monty.h"
 
-void unknown_instruction(char *str, unsigned int line_cnt);
-void opcode(stack_t **stack, char *str, unsigned int line_cnt);
+void unknown_instruction(char *str, unsigned int line_number);
+void opcode(stack_t **stack, char *str, unsigned int line_number);
 
 /**
  * opcode - selects the correct function to perform the operation
  * @stack: pointer to the stack
  * @str: string to compare
- * @line_cnt: line number
+ * @line_number: line number
  * Return: void
  */
-void opcode(stack_t **stack, char *str, unsigned int line_cnt)
+void opcode(stack_t **stack, char *str, unsigned int line_number)
 {
 	/* index for loop */
 	int index = 0;
@@ -44,24 +44,24 @@ void opcode(stack_t **stack, char *str, unsigned int line_cnt)
 		/* if opcode matches, execute function */
 		if (strcmp(str, opcodes[index].opcode) == 0)
 		{
-			opcodes[index].f(stack, line_cnt);
+			opcodes[index].f(stack, line_number);
 			return;
 		}
 		index++;
 	}
 
 	/* if opcode doesn't match, print error */
-	unknown_instruction(str, line_cnt);
+	unknown_instruction(str, line_number);
 }
 
 /**
  * unknown_instruction - prints unknown instruction error message and exits
  * @str: string to compare
- * @line_cnt: line number
+ * @line_number: line number
  * Return: void
  */
-void unknown_instruction(char *str, unsigned int line_cnt)
+void unknown_instruction(char *str, unsigned int line_number)
 {
-	fprintf(stderr, "L%u: unknown instruction %s\n", line_cnt, str);
+	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, str);
 	exit(EXIT_FAILURE);
 }

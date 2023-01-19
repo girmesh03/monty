@@ -9,10 +9,10 @@ void pop(stack_t **stack, unsigned int line_number);
 /**
  * push - pushes an element to the stack
  * @stack: pointer to the top of the stack
- * @line_cnt: line number
+ * @line_number: line number
  * Return: void
  */
-void push(stack_t **stack, unsigned int line_cnt)
+void push(stack_t **stack, unsigned int line_number)
 {
 	/* get argument */
 	char *value = global.argument;
@@ -21,7 +21,7 @@ void push(stack_t **stack, unsigned int line_cnt)
 	if ((is_digit(value)) == 0)
 	{
 		/* print error message */
-		fprintf(stderr, "L%u: usage: push integer\n", line_cnt);
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		/* exit with status EXIT_FAILURE */
 		exit(EXIT_FAILURE);
 	}
@@ -46,16 +46,16 @@ void push(stack_t **stack, unsigned int line_cnt)
 /**
  * pall - prints all the values on the stack, starting from the top
  * @stack: pointer to the top of the stack
- * @line_cnt: line number
+ * @line_number: line number
  * Return: void
  */
-void pall(stack_t **stack, unsigned int line_cnt)
+void pall(stack_t **stack, unsigned int line_number)
 {
 	/* set current to top of stack */
 	stack_t *current = *stack;
 
-	/* line_cnt is unused */
-	(void)line_cnt;
+	/* line_number is unused */
+	(void)line_number;
 
 	/* if stack is empty, do nothing */
 	if (!current)
@@ -74,15 +74,15 @@ void pall(stack_t **stack, unsigned int line_cnt)
 /**
  * pint - prints the value at the top of the stack, followed by a new line
  * @stack: double pointer to the stack
- * @line_cnt: line number of the opcode
+ * @line_number: line number of the opcode
  */
-void pint(stack_t **stack, unsigned int line_cnt)
+void pint(stack_t **stack, unsigned int line_number)
 {
 	/* if stack is empty, print error message */
 	/* and exit with status EXIT_FAILURE */
 	if (!stack || !(*stack))
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_cnt);
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	/* print value of top of stack */
@@ -92,9 +92,9 @@ void pint(stack_t **stack, unsigned int line_cnt)
 /**
  * pop - removes the top element of the stack
  * @stack: double pointer to the stack
- * @line_cnt: line number of the opcode
+ * @line_number: line number of the opcode
  */
-void pop(stack_t **stack, unsigned int line_cnt)
+void pop(stack_t **stack, unsigned int line_number)
 {
 	/* set tmp to top of stack */
 	stack_t *tmp = *stack;
@@ -103,7 +103,7 @@ void pop(stack_t **stack, unsigned int line_cnt)
 	/* and exit with status EXIT_FAILURE */
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", line_cnt);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	/* set top of stack to next node */
