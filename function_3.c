@@ -78,8 +78,8 @@ void mod(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L%d: division by zero\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	/* compute the rest of the division of the second top element of the
-	 * stack by the top element */
+	/* compute the rest of the division of the second top element of the */
+	/* stack by the top element */
 	tmp->next->n %= tmp->n;
 	/* remove the top element of the stack */
 	pop(stack, line_number);
@@ -100,8 +100,8 @@ void pchar(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	/* if the value at the top of the stack is not an ASCII character,
-	 * print error message */
+	/* if the value at the top of the stack is not an ASCII character, */
+	/* print error message */
 	if ((*stack)->n < 0 || (*stack)->n > 127)
 	{
 		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
