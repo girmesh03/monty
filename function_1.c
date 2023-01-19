@@ -45,19 +45,22 @@ void push(stack_t **stack, unsigned int line_cnt)
  */
 void pall(stack_t **stack, unsigned int line_cnt)
 {
-	/* declare pointer to stack */
+	/* set current to top of stack */
 	stack_t *current = *stack;
+
+	/* line_cnt is unused */
+	(void)line_cnt;
 
 	/* if stack is empty, do nothing */
 	if (!current)
 		return;
 
-	/* loop through stack */
-	while (current)
+	/* loop through stack until current is NULL */
+	while (current != NULL)
 	{
-		/* print value */
+		/* print value of current */
 		printf("%d\n", current->n);
-		/* move to next node */
+		/* set current to next node */
 		current = current->next;
 	}
 }
