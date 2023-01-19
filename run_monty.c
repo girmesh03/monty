@@ -21,17 +21,6 @@ void opcode(stack_t **stack, char *str, unsigned int line_cnt)
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},
-		{"swap", swap},
-		{"add", add},
-		{"nop", nop},
-		{"sub", sub},
-		{"div", divi},
-		{"mul", mul},
-		{"mod", mod},
-		{"pchar", pchar},
-		{"pstr", pstr},
-		{"rotl", rotl},
-		{"rotr", rotr},
 		{NULL, NULL}};
 
 	/* check mode stack or queue */
